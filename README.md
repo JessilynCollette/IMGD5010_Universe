@@ -8,7 +8,7 @@ This piece starts off with a single circle in the center of the screen that grow
 ```p5.js
 let bubbles = [];
 let isGrowing = true;
-let circleSize = 1; // Initial size of the main circle
+let circleSize = 1; // for main circle
 let centerX, centerY;
 let hasExploded = false;
 let soundWave = 0;
@@ -21,22 +21,22 @@ let colors = [
   [108, 90, 73]
 ];
 
-let colorSpeed = 0.2; // Controls how fast the color changes
+let colorSpeed = 0.2; // color change speed
 
 function setup() {
   createCanvas(600, 600);
   centerX = width / 2;
   centerY = height / 2;
-  frameRate(30); // make more smooth
+  frameRate(30); // lower fr made more smooth
 }
 
-  // Create bubbles at random positions around the circle
+// Create bubbles at random positions
 function createBubbles() {
   for (let i = 0; i < 150; i++) {
-    let angle = random(TWO_PI); // Random angle for bubble positions
-    let x = centerX + circleSize * cos(angle); // Calculate X position
-    let y = centerY + circleSize * sin(angle); // Calculate Y position
-    let direction = createVector(cos(angle), sin(angle)); // Set direction for each bubble
+    let angle = random(TWO_PI); 
+    let x = centerX + circleSize * cos(angle); 
+    let y = centerY + circleSize * sin(angle);
+    let direction = createVector(cos(angle), sin(angle));
     bubbles.push(new Bubble(x, y, random(10, 25), direction, random(1, 2))); // Add new bubble
   }
 }
@@ -54,12 +54,12 @@ function draw() {
   let nextColor = color(colors[(floor(colorShift * (colors.length - 1)) + 1) % colors.length]);
   let blendedColor = lerpColor(currentColor, nextColor, colorShift); // Blend the two colors
 
-  // Grow the main circle and change its color
+  // Grow main circle and change its color
   if (isGrowing) {
-    fill(blendedColor); // Use blended color
+    fill(blendedColor);
     noStroke();
     ellipse(centerX, centerY, circleSize * 2);
-    circleSize++; // increase size of circle
+    circleSize++;
 
     // Draw pulsating sound waves
     soundWave = sin(frameCount * 0.2) * 50; // Pulsing effect
@@ -92,7 +92,6 @@ function draw() {
   }
 }
 
-// Manage each bubble's behavior
 class Bubble {
   constructor(x, y, size, direction, speed) { // create object of class bubble
     this.x = x; 
@@ -105,8 +104,8 @@ class Bubble {
   
   // Update bubble position and size over time
   update() {
-    this.x += this.direction.x * this.speed; // Move bubble along X
-    this.y += this.direction.y * this.speed; // Move bubble along Y
+    this.x += this.direction.x * this.speed; 
+    this.y += this.direction.y * this.speed;
     this.size *= 0.97; // Shrink bubble over time "pop"
   }
   
