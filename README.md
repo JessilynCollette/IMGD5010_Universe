@@ -30,6 +30,17 @@ function setup() {
   frameRate(30); // make more smooth
 }
 
+  // Create bubbles at random positions around the circle
+function createBubbles() {
+  for (let i = 0; i < 150; i++) {
+    let angle = random(TWO_PI); // Random angle for bubble positions
+    let x = centerX + circleSize * cos(angle); // Calculate X position
+    let y = centerY + circleSize * sin(angle); // Calculate Y position
+    let direction = createVector(cos(angle), sin(angle)); // Set direction for each bubble
+    bubbles.push(new Bubble(x, y, random(10, 25), direction, random(1, 2))); // Add new bubble
+  }
+}
+
 function draw() {
   if (!hasExploded) {
     background(0); // Black background before explosion
@@ -73,17 +84,6 @@ function draw() {
     if (bubble.size <= 1) bubbles.splice(i, 1); // Remove bubble if too small
   }
   
-  // Create bubbles at random positions around the circle
-function createBubbles() {
-  for (let i = 0; i < 150; i++) {
-    let angle = random(TWO_PI); // Random angle for bubble positions
-    let x = centerX + circleSize * cos(angle); // Calculate X position
-    let y = centerY + circleSize * sin(angle); // Calculate Y position
-    let direction = createVector(cos(angle), sin(angle)); // Set direction for each bubble
-    bubbles.push(new Bubble(x, y, random(10, 25), direction, random(1, 2))); // Add new bubble
-  }
-}
-  
   // Reset animation after explosion
   if (bubbles.length === 0 && !isGrowing && hasExploded) {
     isGrowing = true;
@@ -116,7 +116,6 @@ class Bubble {
     ellipse(this.x, this.y, this.size * 2);
   }
 }
-
 ```
 
 ## Link
